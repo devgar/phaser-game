@@ -12,8 +12,13 @@ export default class GameScene extends Phaser.Scene {
   constructor () { super('GameScene') }
 
   player?: Player
+  score: number = 0
+  scoreText?: Phaser.GameObjects.Text
+  
   collectStar: ArcadePhysicsCallback = (_player, star) => {
     (<ArcadeSprite>star).disableBody(true, true)
+    this.score += 10
+    this.scoreText?.setText(`Score: ${this.score}`)
   }
 
   preload() {
@@ -26,6 +31,8 @@ export default class GameScene extends Phaser.Scene {
 
   create() {
     this.add.image(400, 300, 'sky')
+
+    this.scoreText = this.add.text(16, 16, 'score: 0')
 
     const platforms = this.physics.add.staticGroup()
     platforms.create(400, 418, 'ground').setScale(2).refreshBody()
