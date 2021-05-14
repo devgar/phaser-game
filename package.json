@@ -1,5 +1,5 @@
 {
-  "name": "phaser3-typescript-vite-template",
+  "name": "phaser-game",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

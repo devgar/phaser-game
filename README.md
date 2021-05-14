@@ -1,6 +1,6 @@
-# phaser3-typescript-vite-template
+# phaser-game
 
-> Generated via `npm init @vitejs/app`.
+> Forked from `twopmstudios/phaser3-typescript-vite-template`.
 
 A Phaser 3 template based on https://github.com/photonstorm/phaser3-project-template using Typescript and [Vite](https://vitejs.dev/).
 
