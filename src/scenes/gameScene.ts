@@ -6,6 +6,12 @@ import asset_star from '../assets/star.png'
 import asset_bomb from '../assets/bomb.png'
 import Player from '../sprites/player'
 
+type ArcadeSprite = Phaser.Physics.Arcade.Sprite
+
+const collectStar: ArcadePhysicsCallback = (_player, star) => {
+  (<ArcadeSprite>star).disableBody(true, true)
+}
+
 export default class GameScene extends Phaser.Scene {
   constructor () { super('GameScene') }
 
@@ -31,6 +37,18 @@ export default class GameScene extends Phaser.Scene {
     this.player = new Player(this, 220, 200)
 
     this.physics.add.collider(this.player, platforms)
+    
+    const stars = this.physics.add.group({
+      key: 'star',
+      repeat: 11,
+      setXY: { x: 12, y: 0, stepX: 70 }
+    })
+    stars.children.iterate(function (child) {
+      (<ArcadeSprite>child).setBounceY(Phaser.Math.FloatBetween(0.4, 0.8))
+    })
+
+    this.physics.add.collider(stars, platforms)
+    this.physics.add.overlap(this.player, stars, collectStar, undefined, this)
   }
 
   update() {
