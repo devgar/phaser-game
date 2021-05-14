@@ -1,31 +1,21 @@
-import Phaser from "phaser"
-import logoImg from "./assets/logo.png"
+import Phaser from 'phaser'
 
-class MyGame extends Phaser.Scene {
-  preload() {
-    this.load.image("logo", logoImg)
-  }
-
-  create() {
-    const logo = this.add.image(400, 150, "logo")
-
-    this.tweens.add({
-      targets: logo,
-      y: 450,
-      duration: 2000,
-      ease: "Power2",
-      yoyo: true,
-      loop: -1,
-    })
-  }
-}
+import LogoScene from './scenes/logoScene'
+import GameScene from './scenes/gameScene'
 
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
   width: 800,
-  height: 600,
-  scene: MyGame,
+  height: 450,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 300 },
+      debug: false
+    }
+  },
+  scene: [LogoScene, GameScene],
 }
 
 new Phaser.Game(config)
