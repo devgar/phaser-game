@@ -8,14 +8,13 @@ import Player from '../sprites/player'
 
 type ArcadeSprite = Phaser.Physics.Arcade.Sprite
 
-const collectStar: ArcadePhysicsCallback = (_player, star) => {
-  (<ArcadeSprite>star).disableBody(true, true)
-}
-
 export default class GameScene extends Phaser.Scene {
   constructor () { super('GameScene') }
 
   player?: Player
+  collectStar: ArcadePhysicsCallback = (_player, star) => {
+    (<ArcadeSprite>star).disableBody(true, true)
+  }
 
   preload() {
     this.load.image('sky', asset_sky)
@@ -48,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
     })
 
     this.physics.add.collider(stars, platforms)
-    this.physics.add.overlap(this.player, stars, collectStar, undefined, this)
+    this.physics.add.overlap(this.player, stars, this.collectStar)
   }
 
   update() {
